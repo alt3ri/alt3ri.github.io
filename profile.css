@@ -1,0 +1,326 @@
+@import url('https://fonts.googleapis.com/css?family=Krub:400,700');
+ * {
+	 margin: 0;
+	 padding: 0;
+	 box-sizing: border-box;
+}
+ html, body {
+	 width: 100%;
+	 height: 100%;
+}
+ body {
+	 background-color: #4a4a4a;
+	 font-family: 'Krub', sans-serif;
+}
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+}
+ .card {
+	 position: absolute;
+	 margin: auto;
+	 top: 0;
+	 right: 0;
+	 bottom: 0;
+	 left: 0;
+	 width: 600px;
+	 height: 655px;
+	 border-radius: 10px;
+	 box-shadow: 0 10px 25px 5px rgba(0, 0, 0, 0.2);
+	 background: #18191C;
+	 overflow: hidden;
+}
+ .card .ds-top {
+	 position: absolute;
+	 margin: auto;
+	 top: 0;
+	 right: 0;
+	 left: 0;
+	 width: 600px;
+	 height: 240px;
+	 /*background: crimson;*/
+	 background-image: url('image/yaebanner.png');
+	 /* background-size: cover; */
+	 background-repeat: no-repeat;
+	 background-position: center center;
+}
+ .card .avatar-holder {
+	 position: absolute;
+	 margin: auto;
+	 top: 180px;
+	 right: 450px;
+	 left: 0;
+	 width: 100px;
+	 height: 100px;
+	 border-radius: 50%;
+	 box-shadow: 0 0 0 5px #151515, inset 0 0 0 5px #000, inset 0 0 0 5px #000, inset 0 0 0 5px #000, inset 0 0 0 5px #000;
+	 background: white;
+	 overflow: hidden;
+}
+ .card .avatar-holder img {
+	 width: 100%;
+	 height: 100%;
+	 object-fit: cover;
+}
+ .card .name {
+	 position: absolute;
+	 margin: auto;
+	 top: -60px;
+	 right: 0;
+	 bottom: -20px;
+	 left: -405px;
+	 width: inherit;
+	 height: 40px;
+	 text-align: center;
+}
+ .card .name .discrim {
+	 color: rgb(185, 187, 190);
+ }
+ .card .name a {
+	 color: white;
+	 text-decoration: none;
+	 font-weight: 700;
+	 font-size: 18px;
+}
+ .card .name a:hover {
+	 text-decoration: underline;
+	 color: crimson;
+}
+ .card .name h6 {
+	 position: absolute;
+	 margin: auto;
+	 left: -50px;
+	 right: 0;
+	 bottom: 0;
+	 color: white;
+	 width: 80px;
+}
+ .card .button {
+	 position: absolute;
+	 margin: auto;
+	 padding: 8px;
+	 top: 20px;
+	 right: 0;
+	 bottom: 0;
+	 left: 0;
+	 width: inherit;
+	 height: 40px;
+	 text-align: center;
+	 outline: none;
+}
+ .card .button a {
+	 padding: 5px 20px;
+	 border-radius: 10px;
+	 color: white;
+	 letter-spacing: 0.05em;
+	 text-decoration: none;
+	 font-size: 10px;
+	 transition: all 1s;
+}
+ .card .button a:hover {
+	 color: white;
+	 background: crimson;
+}
+ .card .ds-info {
+	 position: absolute;
+	 margin: auto;
+	 top: 120px;
+	 bottom: 0;
+	 right: 0;
+	 left: 0;
+	 width: inherit;
+	 height: 40px;
+	 display: flex;
+}
+ .card .ds-info h6 {
+	position: absolute;
+	margin: auto;
+	left: -500px;
+	right: 0;
+	bottom: 40px;
+	color: white;
+	width: 80px;
+ }
+ .card .ds-info p {
+	color: white;
+	font-size: small;
+	left: 10px;
+	position: absolute;
+ }
+ .card .ds-info .pens, .card .ds-info .projects, .card .ds-info .posts {
+	 position: relative;
+	 left: 160px;
+	 width: calc(250px / 3);
+	 text-align: center;
+	 color: white;
+}
+ .card .ds-info .pens h6, .card .ds-info .projects h6, .card .ds-info .posts h6 {
+	 text-transform: uppercase;
+	 color: white;
+}
+ .card .ds-info .pens p, .card .ds-info .projects p, .card .ds-info .posts p {
+	 font-size: 12px;
+}
+ .card .ds-skill {
+	 position: absolute;
+	 margin: auto;
+	 bottom: 120px;
+	 right: 0;
+	 left: 0;
+	 width: 200px;
+	 height: 100px;
+}
+ .card .ds-skill h6 {
+	 margin-bottom: 5px;
+	 font-weight: 700;
+	 text-transform: uppercase;
+	 color: white;
+	 margin-left: 70px;
+}
+ .card .ds-skill .skill h6 {
+	 font-weight: 400;
+	 font-size: 8px;
+	 letter-spacing: 0.05em;
+	 margin: 4px 0;
+	 color: white;
+}
+ .card .ds-skill .skill .fab {
+	 font-size: 14px;
+}
+ .card .ds-skill .skill .bar {
+	 height: 5px;
+	 text-align: right;
+}
+ .card .ds-skill .skill .bar p {
+	 color: white;
+	 font-size: 8px;
+	 padding-top: 5px;
+}
+ .card .ds-skill .skill .bar:hover {
+	 background: white;
+}
+ .card .ds-skill .skill .bar-html {
+	 width: 95%;
+}
+ .card .ds-skill .skill .bar-css {
+	 width: 90%;
+}
+ .card .ds-skill .skill .bar-js {
+	 width: 75%;
+}
+ @keyframes fadeInMove {
+	 0% {
+		 opacity: 0;
+		 left: -300px;
+	}
+	 100% {
+		 opacity: 1;
+		 left: 0;
+	}
+}
+ @keyframes fadeIn {
+	 0% {
+		 opacity: 0;
+	}
+	 100% {
+		 opacity: 1;
+	}
+}
+ @keyframes htmlSkill {
+	 0% {
+		 width: 0;
+	}
+	 100% {
+		 width: 95%;
+	}
+}
+ @keyframes cssSkill {
+	 0% {
+		 width: 0;
+	}
+	 100% {
+		 width: 90%;
+	}
+}
+ @keyframes jsSkill {
+	 0% {
+		 width: 0;
+	}
+	 100% {
+		 width: 75%;
+	}
+}
+ @keyframes mvBottom {
+	 0% {
+		 bottom: -150px;
+	}
+	 100% {
+		 bottom: 10px;
+	}
+}
+ @keyframes mvTop {
+	 0% {
+		 top: -150px;
+	}
+	 100% {
+		 top: 40px;
+	}
+}
+ @keyframes dsTop {
+	 0% {
+		 top: -150px;
+	}
+	 100% {
+		 top: 0;
+	}
+}
+ .following {
+	 color: white;
+}
+
+.project {
+  align-items: center;
+	flex-shrink: 1;
+	flex-grow: 0;
+	border-radius: 3px;
+	margin-top: 20px;
+	width: 240px;
+	border: 1px solid;
+	color: white;
+	border-color: #262729;
+	cursor: pointer;
+	background-image: -webkit-linear-gradient(30deg, black 50%, transparent 50%);
+	background-image: linear-gradient(30deg, #black 50%, transparent 50%);
+	background-size: 500px;
+	background-repeat: no-repeat;
+	background-position: 0%;
+	-webkit-transition: background 300ms ease-in-out;
+	transition: background 300ms ease-in-out;
+}
+.project:hover {
+  background-position: 100%;
+  color: #black;
+}
+
+.projectlist-left a, .projectlist-right a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.projectlist-left {
+	position: absolute;
+	right: 130px;
+}
+
+.projectlist-right {
+	position: absolute;
+	left: 130px;
+}
+
+
+.genshin {
+	color: white;
+}
