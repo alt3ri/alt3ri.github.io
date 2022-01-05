@@ -73,5 +73,5 @@ window.onload = function() {
 }
 
 document.querySelector(".genshin").addEventListener("click", function() {
-    document.getElementById('subname').innerText = "UID: 1"
+    document.getElementById('subname').innerText = "UID: 813945203"
 });
