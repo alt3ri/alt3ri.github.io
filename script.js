@@ -36,7 +36,7 @@ document.addEventListener('keydown', function() {
 
 if (document.addEventListener) {
     document.addEventListener('contextmenu', function(e) {
-        alert("a!");
+        alert("sounds like a L php user trying to right-click eeh!");
         e.preventDefault();
     }, false);
 } else {
