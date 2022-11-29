@@ -17,10 +17,10 @@ body {
 
 #myVideo {
     position: fixed;
-    right: 0;
+    right: -256;
     bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
+    width: 130%;
+    height: 130%;
 }
 
 .profile {
