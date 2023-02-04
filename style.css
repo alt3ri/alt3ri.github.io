@@ -15,12 +15,15 @@ body {
     font-family: "Raleway", "Microsoft JhengHei", Arial, sans-serif;
 }
 
-#myVideo {
-    position: fixed;
-    right: -205px;
-    bottom: 0;
-    width: 130%;
+#videobg {
+    width: 100%;
     height: 130%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 .profile {
