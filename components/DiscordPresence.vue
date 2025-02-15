@@ -1,5 +1,5 @@
 <template>
-    <div v-if="data" class="bg-[#1e1f22] rounded-lg text-white w-full max-w-md">
+    <div v-if="data" class="bg-[#1e1f22] rounded-lg text-white w-full max-w-md overflow">
       <div v-if="data.data.activities.length > 0">
         <div v-for="activity in data.data.activities" :key="activity.id">
           <div
@@ -7,18 +7,11 @@
             class="flex flex-row h-[120px] ml-[15px] text-[0.75rem] pt-[18px] bg-[#1e1f22] rounded-lg"
           >
             <div class="relative mr-[15px]">
-              <img
-                v-if="activity.assets?.large_image"
-                :src="getAssetUrl(activity.assets.large_image)"
-                :alt="activity.assets.large_text"
-                class="w-[80px] h-[80px] border-[0.5px] border-[#222] rounded-[10px]"
-              />
-              <img
-                v-if="activity.assets?.small_image"
-                :src="getAssetUrl(activity.assets.small_image)"
-                :alt="activity.assets.small_text"
-                class="w-[24px] h-[24px] rounded-full absolute bottom-3 left-16"
-              />
+                <img 
+                  :src="activityImages[activity.id] || 'https://lanyard-profile-readme.vercel.app/assets/unknown.png'" 
+                  alt="Activity Large Image" 
+                  style="width: 80px; height: 80px; border: solid 0.5px #222; border-radius: 10px;"
+                />
             </div>
             <div class="text-[#999] w-[279px]">
               <p class="text-white text-sm font-semibold">
@@ -45,7 +38,8 @@
   
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+import { Buffer } from 'buffer';
 
 interface DiscordUser {
     id: string
@@ -107,21 +101,56 @@ interface LanyardResponse {
 
 const data = ref<LanyardResponse | null>(null)
 
+const encodeBase64 = async (url: string): Promise<string> => {
+    let response = "";
+
+    try {
+        response = await fetch(url, {
+            cache: "no-store",
+        })
+            .then((res) => res.blob())
+            .then(async (blob) => {
+                const buffer = Buffer.from(await blob.arrayBuffer());
+                return buffer.toString("base64");
+            });
+    } catch (e) {
+        console.log(e);
+    }
+
+    return response;
+};
+
+const getAssetUrl = async (applicationId: string, assetUrl: string): Promise<string> => {
+     if (assetUrl.startsWith('mp:external/')) {
+         return `https://${assetUrl.split('/https/')[1]}`
+     }
+     return `https://cdn.discordapp.com/app-assets/${applicationId}/${assetUrl}.webp` || `https://media.discordapp.net/external/${assetUrl.replace("mp:external/", "")}`
+}
+
+const activityImages = ref<Record<string, string>>({})
+
 const fetchDiscordStatus = async () => {
     try {
         const response = await fetch('https://api.lanyard.rest/v1/users/902534396752588861')
         const json = await response.json()
         data.value = json
+        
+        const newImages: Record<string, string> = {}
+        for (const activity of json.data.activities) {
+            if (activity.type === 0 && activity.application_id && activity.assets?.large_image) {
+                try {
+                    const imageUrl = await getAssetUrl(activity.application_id, activity.assets.large_image)
+                    const base64 = await encodeBase64(imageUrl)
+                    newImages[activity.id] = `data:image/png;base64,${base64}`
+                } catch (e) {
+                    newImages[activity.id] = 'https://lanyard-profile-readme.vercel.app/assets/unknown.png'
+                }
+            }
+        }
+        activityImages.value = newImages
     } catch (error) {
         console.error('Error fetching Discord status:', error)
     }
-}
-
-const getAssetUrl = (assetUrl: string): string => {
-    if (assetUrl.startsWith('mp:external/')) {
-        return `https://${assetUrl.split('/https/')[1]}`
-    }
-    return `https://cdn.discordapp.com/app-assets/${assetUrl}`
 }
 
 const getElapsedTime = (timestamp: number): string => {

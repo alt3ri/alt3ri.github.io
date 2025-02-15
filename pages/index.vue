@@ -43,9 +43,6 @@
         </div>
 
         <div class="mt-8 space-y-4">
-          <button class="w-full px-6 py-3 bg-[#DE3163] text-white rounded-lg font-medium flex items-center justify-center space-x-2 hover:bg-[#811331]">
-            <a href="https://encore.moe/en">encore.moe</a>
-          </button>
 
           <button class="w-full px-6 py-3 bg-[#003087] text-white rounded-lg font-medium flex items-center justify-center space-x-2 hover:bg-[#001f6c]">
             <a href="https://paypal.me/alteri203">PayPal.me</a>
