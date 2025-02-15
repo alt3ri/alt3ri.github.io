@@ -19,7 +19,7 @@
 
       <div class="relative">
         <div class="h-32 rounded-t-xl flex items-center justify-center overflow-hidden">
-          <img type="image/gif" src="https://cdn.discordapp.com/attachments/813739185587355652/1338569028578316489/aagiphy.gif?ex=67ae320d&is=67ace08d&hm=5fa0a6cce7dd16e469af768fc1240839e235ee50e1b95f994aaf88395de532ca&">
+          <img type="image/gif" src="/assets/img/doroDance.gif">
         </div>
         
         <div class="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2">
