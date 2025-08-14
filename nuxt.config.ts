@@ -37,6 +37,15 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, height=device-height, initial-scale=1' },
         { "charset": "utf-8"},
       ],
+      script: [
+        {
+          src: './live2d.min.js'
+        },
+        {
+          src: './live2dcubismcore.min.js'
+        }
+      ]
     }
   },
+  ssr: false,
 })
