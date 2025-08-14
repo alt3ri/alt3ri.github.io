@@ -12,9 +12,6 @@ export default defineNuxtConfig({
     build: {
       cssMinify: 'lightningcss',
       sourcemap: false,
-      rollupOptions: {
-        external: ['/Resources/Kurumi_410428/main_effect_10428_250814210322_837528_60.webm'],
-      },
     },
   },
   alias: {

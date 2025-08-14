@@ -13,7 +13,7 @@
         class="absolute inset-0 w-full h-full object-cover"
       >
         <source
-          src="/Resources/Kurumi_410428/main_effect_10428_250814210322_837528_60.webm"
+          src="~/assets/video/main_effect_10428_250814210322_837528_60.webm"
           type="video/webm"
         />
       </video>
