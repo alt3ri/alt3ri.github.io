@@ -59,7 +59,7 @@
               <div class="mt-8 space-y-4">
                 <div class="w-full flex items-center justify-center">
                   <a
-                    href="https://paypal.me/alteri203"
+                    href="https://ko-fi.com/alteri"
                     class="relative inline-block w-full px-6 py-3 font-medium group"
                   >
                     <span class="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-[#ff5a16] group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
