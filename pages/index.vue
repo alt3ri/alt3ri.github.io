@@ -27,7 +27,7 @@
           class="group/card relative size-auto rounded-xl p-6 sm:w-[30rem]"
         >
           <div
-            class="w-full max-w-md bg-white dark:bg-gray-800 rounded-xl shadow-xl transform transition-all duration-300 hover:scale-105"
+            class="w-full max-w-md bg-white rounded-xl shadow-xl transform transition-all duration-300 hover:scale-105"
           >
             <div class="relative">
               <div class="h-32 rounded-t-xl flex items-center justify-center overflow-hidden">
@@ -43,11 +43,11 @@
             </div>
 
             <div class="pt-12 pb-8 px-6 text-center">
-              <h2 class="text-xl font-bold text-gray-800 dark:text-gray-200">alteri</h2>
+              <h2 class="text-xl font-bold text-gray-800">alteri</h2>
               <a href="mailto:me@alteri.moe" class="text-gray-600 dark:text-gray-400 mt-2 underline">
                 me@alteri.moe
               </a>
-              <p class="text-sm text-gray-500 dark:text-gray-400 mt-4 max-w-sm mx-auto">
+              <p class="text-sm text-muted-foreground mt-4 max-w-sm mx-auto">
                 I like Gacha games, Anime, and programming. I'm currently working on
                 <a href="https://encore.moe" class="underline">encore.moe</a>
               </p>
@@ -57,26 +57,46 @@
               </div>
 
               <div class="mt-8 space-y-4">
-                <button
-                  class="w-full px-6 py-3 bg-[#003087] text-white rounded-lg font-medium flex items-center justify-center space-x-2 hover:bg-[#001f6c]"
-                >
-                  <a href="https://paypal.me/alteri203">PayPal.me</a>
-                </button>
-                <button
-                  class="w-full px-6 py-3 bg-[#5865F2] text-white rounded-lg font-medium flex items-center justify-center space-x-2 hover:bg-[#4752c4]"
-                >
-                  <a href="https://discord.com/users/902534396752588861">Discord</a>
-                </button>
-                <button
-                  class="w-full px-6 py-3 bg-gray-900 text-white rounded-lg font-medium flex items-center justify-center space-x-2 hover:bg-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600"
-                >
-                  <a href="https://github.com/alt3ri">GitHub</a>
-                </button>
-                <button
-                  class="w-full px-6 py-3 bg-black text-white rounded-lg font-medium flex items-center justify-center space-x-2 hover:bg-gray-900"
-                >
-                  <a href="https://twitter.com/alteria0">Twitter (X)</a>
-                </button>
+                <div class="w-full flex items-center justify-center">
+                  <a
+                    href="https://paypal.me/alteri203"
+                    class="relative inline-block w-full px-6 py-3 font-medium group"
+                  >
+                    <span class="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-[#ff5a16] group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+                    <span class="absolute inset-0 w-full h-full bg-white border-2 border-[#ff5a16] group-hover:bg-[#ff5a16]"></span>
+                    <span class="relative text-[#ff5a16] group-hover:text-white flex items-center justify-center space-x-2">Ko-fi</span>
+                  </a>
+                </div>
+                <div class="w-full flex items-center justify-center">
+                  <a
+                    href="https://discord.com/users/902534396752588861"
+                    class="relative inline-block w-full px-6 py-3 font-medium group"
+                  >
+                    <span class="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-[#5865F2] group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+                    <span class="absolute inset-0 w-full h-full bg-white border-2 border-[#5865F2] group-hover:bg-[#5865F2]"></span>
+                    <span class="relative text-[#5865F2] group-hover:text-white flex items-center justify-center space-x-2">Discord</span>
+                  </a>
+                </div>
+                <div class="w-full flex items-center justify-center">
+                  <a
+                    href="https://github.com/alt3ri"
+                    class="relative inline-block w-full px-6 py-3 font-medium group"
+                  >
+                    <span class="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-gray-900 dark:bg-gray-700 group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+                    <span class="absolute inset-0 w-full h-full bg-white border-2 border-gray-900 group-hover:bg-gray-900"></span>
+                    <span class="relative text-gray-900 group-hover:text-white flex items-center justify-center space-x-2">GitHub</span>
+                  </a>
+                </div>
+                <div class="w-full flex items-center justify-center">
+                  <a
+                    href="https://twitter.com/alteria0"
+                    class="relative inline-block w-full px-6 py-3 font-medium group"
+                  >
+                    <span class="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+                    <span class="absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black"></span>
+                    <span class="relative text-black group-hover:text-white flex items-center justify-center space-x-2">Twitter (X)</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
