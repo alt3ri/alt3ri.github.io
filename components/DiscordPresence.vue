@@ -1,41 +1,48 @@
 <template>
-    <div v-if="data" class="bg-[#1e1f22] rounded-lg text-white w-full max-w-md overflow">
-      <div v-if="data.data.activities.length > 0">
-        <div v-for="activity in data.data.activities" :key="activity.id">
-          <div
-            v-if="activity.type === 0"
-            class="flex flex-row h-[120px] ml-[15px] text-[0.75rem] pt-[18px] bg-[#1e1f22] rounded-lg"
-          >
-            <div class="relative mr-[15px]">
-                <img 
-                  :src="activityImages[activity.id] || 'https://lanyard-profile-readme.vercel.app/assets/unknown.png'" 
-                  alt="Activity Large Image" 
-                  style="width: 80px; height: 80px; border: solid 0.5px #222; border-radius: 10px;"
-                />
-            </div>
-            <div class="text-[#999] w-[279px]">
-              <p class="text-white text-sm font-semibold">
-                {{ activity.name }}
-              </p>
-              <p v-if="activity.details" class="text-gray-300 text-xs truncate">
-                {{ activity.details }}
-              </p>
-              <p v-if="activity.state" class="text-gray-300 text-xs truncate">
-                {{ activity.state }}
-              </p>
-              <p v-if="activity.timestamps?.start" class="text-gray-300 text-xs">
-                {{ getElapsedTime(activity.timestamps.start) }}
-              </p>
-            </div>
+  <div v-if="data">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="status-dot" :style="{ backgroundColor: statusColor }"></span>
+      <span class="text-xs uppercase tracking-widest" style="color: var(--text-muted);">
+        {{ data.data.discord_status === 'online' ? 'online' : data.data.discord_status === 'idle' ? 'idle' : data.data.discord_status === 'dnd' ? 'do not disturb' : 'offline' }}
+      </span>
+    </div>
+
+    <div v-if="data.data.activities.length > 0">
+      <div v-for="activity in data.data.activities" :key="activity.id">
+        <div
+          v-if="activity.type === 0"
+          class="flex flex-row gap-3 items-start"
+        >
+          <div class="shrink-0">
+            <img
+              :src="activityImages[activity.id] || 'https://lanyard-profile-readme.vercel.app/assets/unknown.png'"
+              alt="Activity"
+              class="w-16 h-16 profile-img"
+            />
+          </div>
+          <div class="min-w-0 flex-1">
+            <p class="text-sm font-bold truncate" style="color: var(--text-heading);">
+              {{ activity.name }}
+            </p>
+            <p v-if="activity.details" class="text-xs truncate mt-1" style="color: var(--text-body);">
+              {{ activity.details }}
+            </p>
+            <p v-if="activity.state" class="text-xs truncate" style="color: var(--text-muted);">
+              {{ activity.state }}
+            </p>
+            <p v-if="activity.timestamps?.start" class="text-xs mt-1" style="color: var(--text-muted);">
+              {{ getElapsedTime(activity.timestamps.start) }}
+            </p>
           </div>
         </div>
       </div>
-      <div v-else class="text-gray-400">
-        No current activity
-      </div>
     </div>
-  </template>
-  
+    <div v-else style="color: var(--text-muted);" class="text-xs">
+      no current activity
+    </div>
+  </div>
+</template>
+
 
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
@@ -101,6 +108,16 @@ interface LanyardResponse {
 
 const data = ref<LanyardResponse | null>(null)
 
+const statusColor = computed(() => {
+    if (!data.value) return '#666'
+    switch (data.value.data.discord_status) {
+        case 'online': return '#43b581'
+        case 'idle': return '#faa61a'
+        case 'dnd': return '#f04747'
+        default: return '#666'
+    }
+})
+
 const encodeBase64 = async (url: string): Promise<string> => {
     let response = "";
 
@@ -134,7 +151,7 @@ const fetchDiscordStatus = async () => {
         const response = await fetch('https://api.lanyard.rest/v1/users/902534396752588861')
         const json = await response.json()
         data.value = json
-        
+
         const newImages: Record<string, string> = {}
         for (const activity of json.data.activities) {
             if (activity.type === 0 && activity.application_id && activity.assets?.large_image) {
