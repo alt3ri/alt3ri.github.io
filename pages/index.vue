@@ -20,6 +20,8 @@
       <Live2D class="absolute inset-0" />
     </div>
 
+    <PixelWave full-screen :z-index="2" />
+
     <div class="relative min-h-screen flex items-center justify-center sm:justify-start p-4 sm:p-8" style="z-index: 10;">
       <div class="profile-column w-full max-w-md space-y-6">
 
