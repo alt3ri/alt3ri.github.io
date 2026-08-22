@@ -53,7 +53,11 @@
               href="https://encore.moe"
               style="color: var(--text-link-hover); border-bottom: 1px solid var(--border-color);"
               class="hover:!border-white"
-            >encore.moe</a>
+            >encore.moe</a> and <a
+              href="https://comico.moe"
+              style="color: var(--text-link-hover); border-bottom: 1px solid var(--border-color);"
+              class="hover:!border-white"
+            >comico.moe</a>
           </div>
         </div>
 
