@@ -37,7 +37,7 @@ onMounted(async () => {
   });
 
   const model = await Live2DModel.from(
-    './Resources/Kurumi_410428/bust_10428_new.model3.json'
+    '/Resources/Kurumi_410428/bust_10428_new.model3.json'
   );
 
   app.stage.addChild(model);

@@ -39,10 +39,10 @@ export default defineNuxtConfig({
       ],
       script: [
         {
-          src: './live2d.min.js'
+          src: '/live2d.min.js'
         },
         {
-          src: './live2dcubismcore.min.js'
+          src: '/live2dcubismcore.min.js'
         }
       ]
     }
