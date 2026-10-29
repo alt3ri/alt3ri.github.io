@@ -101,7 +101,7 @@
           <!-- Columns 2-3 -->
           <div class="lg:col-span-2 space-y-6">
             <div>
-              <div class="text-xs uppercase tracking-widest mb-3 flex items-center gap-2" style="color: var(--text-muted);">
+              <div class="retro-card fade-in fade-in-delay-3 text-xs uppercase tracking-widest mb-6 flex items-center gap-2" style="color: var(--text-muted); padding: 10px 24px;">
                 <img src="/icons/material/console.svg" alt="" class="w-3.5 h-3.5 opacity-70" />
                 // projects
               </div>
@@ -238,34 +238,39 @@ interface LinkItem {
 // Matched with startsWith against the lowercased tag, so 'Nuxt 4', 'Vue 3.5', 'JUnit 5', 'Tauri 2' all match.
 const TECH_ICON_RULES: [string, string][] = [
   ['typescript', 'typescript'],
-  ['nuxt', 'vue'],
+  ['nuxt', 'nuxt'],
   ['vue', 'vue'],
   ['pinia', 'vue'],
-  ['vite', 'vue'],
+  ['vitest', 'vitest'],
+  ['vite', 'vite'],
+  ['node:test', 'test-ts'],
   ['node.js', 'nodejs'],
-  ['nitro', 'nodejs'],
-  ['pm2', 'nodejs'],
+  ['nitro', 'nuxt'],
+  ['pm2', 'pm2-ecosystem'],
   ['discord.js', 'nodejs'],
-  ['node:test', 'nodejs'],
-  ['npm', 'nodejs'],
+  ['npm', 'npm'],
   ['rust', 'rust'],
-  ['tauri', 'rust'],
+  ['tauri', 'tauri'],
   ['tokio', 'rust'],
   ['java', 'java'],
-  ['gradle', 'java'],
+  ['gradle', 'gradle'],
   ['junit', 'java'],
   ['jdbc', 'java'],
   ['python', 'python'],
   ['docker', 'docker'],
   ['postgresql', 'database'],
-  ['drizzle', 'database'],
-  ['prisma', 'database'],
+  ['drizzle', 'drizzle'],
+  ['prisma', 'prisma'],
   ['redis', 'database'],
-  ['bullmq', 'database'],
+  ['bullmq', 'folder-queue'],
+  ['aws', 'folder-aws'],
+  ['github actions', 'github-actions-workflow'],
   ['git', 'git'],
-  ['github actions', 'git'],
-  ['tailwind', 'css'],
-  ['openapi', 'json'],
+  ['tailwind', 'tailwindcss'],
+  ['openapi', 'openapi'],
+  ['protobuf', 'proto'],
+  ['protocol buffers', 'proto'],
+  ['internationalization', 'i18n'],
   ['mit', 'license'],
   ['three.js', 'javascript'],
   ['pixijs', 'javascript'],
@@ -290,7 +295,7 @@ const projects: Project[] = [
     title: 'Multilingual Game-Data Platform (unofficial fan project)',
     url: 'https://encore.moe',
     summary: 'Solo-built Nuxt SSR site in 13 languages with a TypeScript Nitro data API, byte-budgeted caching and file-watch invalidation, so new data goes live without a redeploy. A Discord bot is updated through webhooks.',
-    tech: ['TypeScript', 'Nuxt 4', 'Vue 3', 'Nitro', 'Pinia', 'Tailwind', 'three.js', 'PixiJS', 'discord.js', 'PM2', 'OpenAPI'],
+    tech: ['Nuxt 4', 'TypeScript', 'Vue 3', 'Nitro', 'Pinia', 'Tailwind', 'three.js', 'PixiJS', 'discord.js', 'PM2', 'OpenAPI'],
   },
   {
     title: 'comico.moe: Reading Platform (Nuxt 4 + PostgreSQL)',
@@ -347,11 +352,11 @@ const skills: SkillGroup[] = [
 ]
 
 const links: LinkItem[] = [
-  { label: 'GitHub', href: 'https://github.com/alt3ri', external: true, icon: 'git' },
-  { label: 'AreTwo repo', href: 'https://github.com/alt3ri/AreTwo', external: true, icon: 'rust' },
-  { label: 'encore.moe', href: 'https://encore.moe', external: true, icon: 'vue' },
-  { label: 'comico.moe', href: 'https://comico.moe', external: true, icon: 'vue' },
-  { label: 'Email', href: 'mailto:me@alteri.moe', external: false, icon: 'document' },
+  { label: 'GitHub', href: 'https://github.com/alt3ri', external: true, icon: 'folder-github' },
+  { label: 'AreTwo repo', href: 'https://github.com/alt3ri/AreTwo', external: true, icon: 'tauri' },
+  { label: 'encore.moe', href: 'https://encore.moe', external: true, icon: 'nuxt' },
+  { label: 'comico.moe', href: 'https://comico.moe', external: true, icon: 'nuxt' },
+  { label: 'Email', href: 'mailto:me@alteri.moe', external: false, icon: 'email' },
 ]
 
 useSeoMeta({
