@@ -22,151 +22,185 @@
 
     <PixelWave full-screen :z-index="2" />
 
-    <div class="relative min-h-screen flex items-start justify-center sm:justify-start px-4 sm:px-8 py-12" style="z-index: 10;">
-      <div class="profile-column w-full max-w-2xl space-y-6">
+    <div class="relative min-h-screen flex items-start justify-center px-4 sm:px-8 py-12" style="z-index: 10;">
+      <div class="w-full max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
 
-        <div class="retro-card text-center fade-in fade-in-delay-1">
-          <div class="flex flex-col items-center gap-4">
-            <img
-              src="https://avatars.githubusercontent.com/u/95161279?v=4"
-              alt="alteri"
-              class="w-20 h-20 rounded-full profile-img"
-            />
+          <!-- Column 1 -->
+          <div class="space-y-6">
+            <div class="retro-card text-center fade-in fade-in-delay-1">
+              <div class="flex flex-col items-center gap-4">
+                <img
+                  src="https://avatars.githubusercontent.com/u/95161279?v=4"
+                  alt="alteri"
+                  class="w-20 h-20 rounded-full profile-img"
+                />
+                <div>
+                  <h1 class="text-2xl font-bold tracking-tight" style="color: var(--text-heading);">
+                    alteri
+                  </h1>
+                  <NuxtLink
+                    to="/"
+                    class="text-xs tracking-wider mt-1 inline-block"
+                    style="color: var(--text-muted); border-bottom: 1px solid var(--border-color);"
+                  >
+                    ← home
+                  </NuxtLink>
+                </div>
+              </div>
+
+              <div class="mt-4 text-sm leading-relaxed" style="color: var(--text-body);">
+                {{ headline }}
+              </div>
+            </div>
+
+            <div class="retro-card fade-in fade-in-delay-2">
+              <div class="text-xs uppercase tracking-widest mb-3 flex items-center gap-2" style="color: var(--text-muted);">
+                <img src="/icons/material/readme.svg" alt="" class="w-3.5 h-3.5 opacity-70" />
+                // about
+              </div>
+              <div class="space-y-3 text-sm leading-relaxed" style="color: var(--text-body);">
+                <p v-for="(para, i) in aboutParagraphs" :key="i">{{ para }}</p>
+              </div>
+              <p class="mt-3 text-xs" style="color: var(--text-muted);">
+                Figures are self-reported Google Analytics, 2026 YTD.
+              </p>
+            </div>
+
+            <div class="retro-card fade-in fade-in-delay-5">
+              <div class="text-xs uppercase tracking-widest mb-3 flex items-center gap-2" style="color: var(--text-muted);">
+                <img src="/icons/material/markdown.svg" alt="" class="w-3.5 h-3.5 opacity-70" />
+                // education
+              </div>
+              <p class="text-sm" style="color: var(--text-heading);">FPT University</p>
+            </div>
+
+            <div class="retro-card fade-in fade-in-delay-5">
+              <div class="text-xs uppercase tracking-widest mb-3 flex items-center gap-2" style="color: var(--text-muted);">
+                <img src="/icons/material/lock.svg" alt="" class="w-3.5 h-3.5 opacity-70" />
+                // links
+              </div>
+              <div class="space-y-2">
+                <a
+                  v-for="link in links"
+                  :key="link.href"
+                  :href="link.href"
+                  :target="link.external ? '_blank' : undefined"
+                  :rel="link.external ? 'noopener' : undefined"
+                  class="social-link"
+                >
+                  <span class="inline-flex items-center gap-2">
+                    <img :src="`/icons/material/${link.icon}.svg`" alt="" class="w-3.5 h-3.5" />
+                    {{ link.label }}
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columns 2-3 -->
+          <div class="lg:col-span-2 space-y-6">
             <div>
-              <h1 class="text-2xl font-bold tracking-tight" style="color: var(--text-heading);">
-                alteri
-              </h1>
-              <NuxtLink
-                to="/"
-                class="text-xs tracking-wider mt-1 inline-block"
-                style="color: var(--text-muted); border-bottom: 1px solid var(--border-color);"
-              >
-                ← home
-              </NuxtLink>
+              <div class="text-xs uppercase tracking-widest mb-3 flex items-center gap-2" style="color: var(--text-muted);">
+                <img src="/icons/material/console.svg" alt="" class="w-3.5 h-3.5 opacity-70" />
+                // projects
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div
+                  v-for="project in projects"
+                  :key="project.title"
+                  class="retro-card fade-in fade-in-delay-3"
+                >
+                  <div class="flex flex-wrap items-baseline justify-between gap-2">
+                    <h3 class="text-sm font-semibold flex items-center gap-2" style="color: var(--text-heading);">
+                      <img
+                        v-if="techIcon(project.tech[0] ?? '')"
+                        :src="techIcon(project.tech[0] ?? '')"
+                        alt=""
+                        class="w-4 h-4"
+                      />
+                      {{ project.title }}
+                    </h3>
+                    <a
+                      v-if="project.url"
+                      :href="project.url"
+                      target="_blank"
+                      rel="noopener"
+                      class="text-xs"
+                      style="color: var(--text-link-hover); border-bottom: 1px solid var(--border-color);"
+                    >
+                      {{ project.url.replace('https://', '') }}
+                    </a>
+                    <span v-else class="text-xs" style="color: var(--text-muted);">private</span>
+                  </div>
+                  <p class="mt-2 text-sm leading-relaxed" style="color: var(--text-body);">
+                    {{ project.summary }}
+                  </p>
+                  <div class="mt-2 flex flex-wrap gap-2">
+                    <span
+                      v-for="t in project.tech"
+                      :key="t"
+                      class="text-xs px-2 py-0.5 inline-flex items-center gap-1.5"
+                      style="border: 1px solid var(--border-color); color: var(--text-muted);"
+                    >
+                      <img v-if="techIcon(t)" :src="techIcon(t)" alt="" class="w-3.5 h-3.5" />
+                      {{ t }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div class="retro-card fade-in fade-in-delay-4">
+                <div class="text-xs uppercase tracking-widest mb-3 flex items-center gap-2" style="color: var(--text-muted);">
+                  <img src="/icons/material/document.svg" alt="" class="w-3.5 h-3.5 opacity-70" />
+                  // experience
+                </div>
+                <div v-for="job in experience" :key="job.role">
+                  <h3 class="text-sm font-semibold" style="color: var(--text-heading);">
+                    {{ job.role }}
+                  </h3>
+                  <p class="text-xs mb-2" style="color: var(--text-muted);">{{ job.org }}</p>
+                  <ul class="list-disc pl-5 space-y-1 text-sm leading-relaxed" style="color: var(--text-body);">
+                    <li v-for="b in job.bullets" :key="b">{{ b }}</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="retro-card fade-in fade-in-delay-4">
+                <div class="text-xs uppercase tracking-widest mb-3 flex items-center gap-2" style="color: var(--text-muted);">
+                  <img src="/icons/material/git.svg" alt="" class="w-3.5 h-3.5 opacity-70" />
+                  // open source
+                </div>
+                <p class="text-sm leading-relaxed" style="color: var(--text-body);">
+                  {{ openSource }}
+                </p>
+              </div>
+            </div>
+
+            <div class="retro-card fade-in fade-in-delay-5">
+              <div class="text-xs uppercase tracking-widest mb-3 flex items-center gap-2" style="color: var(--text-muted);">
+                <img src="/icons/material/settings.svg" alt="" class="w-3.5 h-3.5 opacity-70" />
+                // skills
+              </div>
+              <div v-for="group in skills" :key="group.label" class="mb-4 last:mb-0">
+                <div class="text-xs mb-2" style="color: var(--text-muted);">{{ group.label }}</div>
+                <div class="flex flex-wrap gap-2">
+                  <span
+                    v-for="s in group.items"
+                    :key="s"
+                    class="text-xs px-2 py-1 inline-flex items-center gap-1.5"
+                    style="border: 1px solid var(--border-color); color: var(--text-body);"
+                  >
+                    <img v-if="techIcon(s)" :src="techIcon(s)" alt="" class="w-3.5 h-3.5" />
+                    {{ s }}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="mt-4 text-sm leading-relaxed" style="color: var(--text-body);">
-            {{ headline }}
-          </div>
-        </div>
-
-        <div class="retro-card fade-in fade-in-delay-2">
-          <div class="text-xs uppercase tracking-widest mb-3" style="color: var(--text-muted);">
-            // about
-          </div>
-          <div class="space-y-3 text-sm leading-relaxed" style="color: var(--text-body);">
-            <p v-for="(para, i) in aboutParagraphs" :key="i">{{ para }}</p>
-          </div>
-          <p class="mt-3 text-xs" style="color: var(--text-muted);">
-            Figures are self-reported Google Analytics, 2026 YTD.
-          </p>
-        </div>
-
-        <div class="retro-card fade-in fade-in-delay-3">
-          <div class="text-xs uppercase tracking-widest mb-3" style="color: var(--text-muted);">
-            // projects
-          </div>
-          <div
-            v-for="(project, i) in projects"
-            :key="project.title"
-            :class="{ 'pt-4 mt-4': i > 0 }"
-            :style="i > 0 ? { borderTop: '1px solid var(--border-color)' } : undefined"
-          >
-            <div class="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 class="text-sm font-semibold" style="color: var(--text-heading);">
-                {{ project.title }}
-              </h3>
-              <a
-                v-if="project.url"
-                :href="project.url"
-                target="_blank"
-                rel="noopener"
-                class="text-xs"
-                style="color: var(--text-link-hover); border-bottom: 1px solid var(--border-color);"
-              >
-                {{ project.url.replace('https://', '') }}
-              </a>
-              <span v-else class="text-xs" style="color: var(--text-muted);">private</span>
-            </div>
-            <p class="mt-2 text-sm leading-relaxed" style="color: var(--text-body);">
-              {{ project.summary }}
-            </p>
-            <div class="mt-2 flex flex-wrap gap-2">
-              <span
-                v-for="t in project.tech"
-                :key="t"
-                class="text-xs px-2 py-0.5"
-                style="border: 1px solid var(--border-color); color: var(--text-muted);"
-              >{{ t }}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="retro-card fade-in">
-          <div class="text-xs uppercase tracking-widest mb-3" style="color: var(--text-muted);">
-            // open source
-          </div>
-          <p class="text-sm leading-relaxed" style="color: var(--text-body);">
-            {{ openSource }}
-          </p>
-        </div>
-
-        <div class="retro-card fade-in">
-          <div class="text-xs uppercase tracking-widest mb-3" style="color: var(--text-muted);">
-            // experience
-          </div>
-          <div v-for="job in experience" :key="job.role">
-            <h3 class="text-sm font-semibold" style="color: var(--text-heading);">
-              {{ job.role }}
-            </h3>
-            <p class="text-xs mb-2" style="color: var(--text-muted);">{{ job.org }}</p>
-            <ul class="list-disc pl-5 space-y-1 text-sm leading-relaxed" style="color: var(--text-body);">
-              <li v-for="b in job.bullets" :key="b">{{ b }}</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="retro-card fade-in">
-          <div class="text-xs uppercase tracking-widest mb-3" style="color: var(--text-muted);">
-            // education
-          </div>
-          <p class="text-sm" style="color: var(--text-heading);">FPT University</p>
-        </div>
-
-        <div class="retro-card fade-in">
-          <div class="text-xs uppercase tracking-widest mb-3" style="color: var(--text-muted);">
-            // skills
-          </div>
-          <div v-for="group in skills" :key="group.label" class="mb-4 last:mb-0">
-            <div class="text-xs mb-2" style="color: var(--text-muted);">{{ group.label }}</div>
-            <div class="flex flex-wrap gap-2">
-              <span
-                v-for="s in group.items"
-                :key="s"
-                class="text-xs px-2 py-1"
-                style="border: 1px solid var(--border-color); color: var(--text-body);"
-              >{{ s }}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="retro-card fade-in">
-          <div class="text-xs uppercase tracking-widest mb-3" style="color: var(--text-muted);">
-            // links
-          </div>
-          <div class="space-y-2">
-            <a
-              v-for="link in links"
-              :key="link.href"
-              :href="link.href"
-              :target="link.external ? '_blank' : undefined"
-              :rel="link.external ? 'noopener' : undefined"
-              class="social-link"
-            >
-              <span>{{ link.label }}</span>
-            </a>
-          </div>
         </div>
       </div>
     </div>
@@ -198,6 +232,49 @@ interface LinkItem {
   label: string
   href: string
   external: boolean
+  icon: string
+}
+
+// Matched with startsWith against the lowercased tag, so 'Nuxt 4', 'Vue 3.5', 'JUnit 5', 'Tauri 2' all match.
+const TECH_ICON_RULES: [string, string][] = [
+  ['typescript', 'typescript'],
+  ['nuxt', 'vue'],
+  ['vue', 'vue'],
+  ['pinia', 'vue'],
+  ['vite', 'vue'],
+  ['node.js', 'nodejs'],
+  ['nitro', 'nodejs'],
+  ['pm2', 'nodejs'],
+  ['discord.js', 'nodejs'],
+  ['node:test', 'nodejs'],
+  ['npm', 'nodejs'],
+  ['rust', 'rust'],
+  ['tauri', 'rust'],
+  ['tokio', 'rust'],
+  ['java', 'java'],
+  ['gradle', 'java'],
+  ['junit', 'java'],
+  ['jdbc', 'java'],
+  ['python', 'python'],
+  ['docker', 'docker'],
+  ['postgresql', 'database'],
+  ['drizzle', 'database'],
+  ['prisma', 'database'],
+  ['redis', 'database'],
+  ['bullmq', 'database'],
+  ['git', 'git'],
+  ['github actions', 'git'],
+  ['tailwind', 'css'],
+  ['openapi', 'json'],
+  ['mit', 'license'],
+  ['three.js', 'javascript'],
+  ['pixijs', 'javascript'],
+]
+
+function techIcon(name: string): string | undefined {
+  const tag = name.toLowerCase()
+  const hit = TECH_ICON_RULES.find(([key]) => tag.startsWith(key))
+  return hit ? `/icons/material/${hit[1]}.svg` : undefined
 }
 
 const headline = 'Full-Stack Developer (TypeScript/Nuxt) | Built a solo web platform serving 252K users/yr | Node.js · PostgreSQL · Docker'
@@ -270,11 +347,11 @@ const skills: SkillGroup[] = [
 ]
 
 const links: LinkItem[] = [
-  { label: 'GitHub', href: 'https://github.com/alt3ri', external: true },
-  { label: 'AreTwo repo', href: 'https://github.com/alt3ri/AreTwo', external: true },
-  { label: 'encore.moe', href: 'https://encore.moe', external: true },
-  { label: 'comico.moe', href: 'https://comico.moe', external: true },
-  { label: 'Email', href: 'mailto:me@alteri.moe', external: false },
+  { label: 'GitHub', href: 'https://github.com/alt3ri', external: true, icon: 'git' },
+  { label: 'AreTwo repo', href: 'https://github.com/alt3ri/AreTwo', external: true, icon: 'rust' },
+  { label: 'encore.moe', href: 'https://encore.moe', external: true, icon: 'vue' },
+  { label: 'comico.moe', href: 'https://comico.moe', external: true, icon: 'vue' },
+  { label: 'Email', href: 'mailto:me@alteri.moe', external: false, icon: 'document' },
 ]
 
 useSeoMeta({
