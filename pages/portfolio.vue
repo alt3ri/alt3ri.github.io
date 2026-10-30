@@ -1,26 +1,6 @@
 <template>
   <ClientOnly>
-    <div class="fixed inset-0 w-screen h-screen overflow-hidden" style="z-index: 0; transform: scaleX(-1);">
-      <video
-        autoplay
-        muted
-        loop
-        playsinline
-        class="absolute inset-0 w-full h-full object-cover"
-        style="filter: brightness(0.4);"
-      >
-        <source
-          src="~/assets/video/main_effect_10428_250814210322_837528_60.webm"
-          type="video/webm"
-        />
-      </video>
-    </div>
-
-    <div class="fixed inset-0 w-screen h-screen pointer-events-none" style="z-index: 1; transform: scaleX(-1); filter: brightness(0.4);">
-      <Live2D class="absolute inset-0" />
-    </div>
-
-    <PixelWave full-screen :z-index="2" />
+    <PixelGradient />
 
     <div class="relative min-h-screen flex items-start justify-center px-4 sm:px-8 py-12" style="z-index: 10;">
       <div class="w-full max-w-7xl mx-auto">
@@ -49,8 +29,18 @@
                 </div>
               </div>
 
-              <div class="mt-4 text-sm leading-relaxed" style="color: var(--text-body);">
-                {{ headline }}
+              <div class="mt-4">
+                <p class="text-sm" style="color: var(--text-body);">Full-Stack Developer</p>
+                <div class="mt-2 flex items-center justify-center gap-2">
+                  <img
+                    v-for="h in headerIcons"
+                    :key="h.icon"
+                    :src="`/icons/material/${h.icon}.svg`"
+                    :title="h.label"
+                    :aria-label="h.label"
+                    class="w-5 h-5"
+                  />
+                </div>
               </div>
             </div>
 
@@ -59,11 +49,22 @@
                 <img src="/icons/material/readme.svg" alt="" class="w-3.5 h-3.5 opacity-70" />
                 // about
               </div>
-              <div class="space-y-3 text-sm leading-relaxed" style="color: var(--text-body);">
-                <p v-for="(para, i) in aboutParagraphs" :key="i">{{ para }}</p>
+              <p class="text-sm leading-relaxed" style="color: var(--text-body);">
+                Building web platforms end to end. Open to junior roles.
+              </p>
+              <div class="mt-2 grid grid-cols-2 gap-2">
+                <div
+                  v-for="stat in stats"
+                  :key="stat.label"
+                  class="px-2 py-2 text-center"
+                  style="border: 1px solid var(--border-color);"
+                >
+                  <div class="text-xl font-bold" style="color: var(--text-heading);">{{ stat.value }}</div>
+                  <div class="mt-0.5 text-xs" style="color: var(--text-muted);">{{ stat.label }}</div>
+                </div>
               </div>
-              <p class="mt-3 text-xs" style="color: var(--text-muted);">
-                Figures are self-reported Google Analytics, 2026 YTD.
+              <p class="mt-3 text-xs text-center" style="color: var(--text-muted);">
+                encore.moe · self-reported Google Analytics · 2026 YTD
               </p>
             </div>
 
@@ -112,40 +113,40 @@
                   class="retro-card fade-in fade-in-delay-3"
                 >
                   <div class="flex flex-wrap items-baseline justify-between gap-2">
-                    <h3 class="text-sm font-semibold flex items-center gap-2" style="color: var(--text-heading);">
-                      <img
-                        v-if="techIcon(project.tech[0] ?? '')"
-                        :src="techIcon(project.tech[0] ?? '')"
-                        alt=""
-                        class="w-4 h-4"
-                      />
-                      {{ project.title }}
+                    <h3 class="text-sm font-semibold" style="color: var(--text-heading);">
+                      <a
+                        v-if="project.titleUrl"
+                        :href="project.titleUrl"
+                        target="_blank"
+                        rel="noopener"
+                        style="color: var(--text-link-hover); border-bottom: 1px solid var(--border-color);"
+                      >{{ project.title }}</a>
+                      <template v-else>{{ project.title }}</template>
                     </h3>
                     <a
-                      v-if="project.url"
-                      :href="project.url"
+                      v-if="project.link"
+                      :href="project.link.href"
                       target="_blank"
                       rel="noopener"
                       class="text-xs"
                       style="color: var(--text-link-hover); border-bottom: 1px solid var(--border-color);"
                     >
-                      {{ project.url.replace('https://', '') }}
+                      {{ project.link.label }}
                     </a>
-                    <span v-else class="text-xs" style="color: var(--text-muted);">private</span>
+                    <span v-else-if="!project.titleUrl" class="text-xs" style="color: var(--text-muted);">private</span>
                   </div>
                   <p class="mt-2 text-sm leading-relaxed" style="color: var(--text-body);">
                     {{ project.summary }}
                   </p>
                   <div class="mt-2 flex flex-wrap gap-2">
-                    <span
-                      v-for="t in project.tech"
-                      :key="t"
-                      class="text-xs px-2 py-0.5 inline-flex items-center gap-1.5"
-                      style="border: 1px solid var(--border-color); color: var(--text-muted);"
-                    >
-                      <img v-if="techIcon(t)" :src="techIcon(t)" alt="" class="w-3.5 h-3.5" />
-                      {{ t }}
-                    </span>
+                    <img
+                      v-for="icon in projectIcons(project.tech)"
+                      :key="icon.src"
+                      :src="icon.src"
+                      :title="icon.label"
+                      :aria-label="icon.label"
+                      class="w-5 h-5"
+                    />
                   </div>
                 </div>
               </div>
@@ -162,9 +163,19 @@
                     {{ job.role }}
                   </h3>
                   <p class="text-xs mb-2" style="color: var(--text-muted);">{{ job.org }}</p>
-                  <ul class="list-disc pl-5 space-y-1 text-sm leading-relaxed" style="color: var(--text-body);">
-                    <li v-for="b in job.bullets" :key="b">{{ b }}</li>
-                  </ul>
+                  <p class="text-sm leading-relaxed" style="color: var(--text-body);">
+                    {{ job.summary }}
+                  </p>
+                  <div class="mt-2 flex flex-wrap gap-2">
+                    <img
+                      v-for="icon in projectIcons(job.stack)"
+                      :key="icon.src"
+                      :src="icon.src"
+                      :title="icon.label"
+                      :aria-label="icon.label"
+                      class="w-5 h-5"
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -173,8 +184,9 @@
                   <img src="/icons/material/git.svg" alt="" class="w-3.5 h-3.5 opacity-70" />
                   // open source
                 </div>
-                <p class="text-sm leading-relaxed" style="color: var(--text-body);">
-                  {{ openSource }}
+                <p class="text-2xl font-bold" style="color: var(--text-heading);">12 merged PRs</p>
+                <p class="mt-1 text-xs" style="color: var(--text-muted);">
+                  large open-source Java server project · 2022
                 </p>
               </div>
             </div>
@@ -186,16 +198,22 @@
               </div>
               <div v-for="group in skills" :key="group.label" class="mb-4 last:mb-0">
                 <div class="text-xs mb-2" style="color: var(--text-muted);">{{ group.label }}</div>
-                <div class="flex flex-wrap gap-2">
-                  <span
+                <div class="flex flex-wrap gap-3">
+                  <div
                     v-for="s in group.items"
                     :key="s"
-                    class="text-xs px-2 py-1 inline-flex items-center gap-1.5"
-                    style="border: 1px solid var(--border-color); color: var(--text-body);"
+                    class="px-2.5 py-2 inline-flex flex-col items-center gap-1"
+                    style="border: 1px solid var(--border-color);"
                   >
-                    <img v-if="techIcon(s)" :src="techIcon(s)" alt="" class="w-3.5 h-3.5" />
-                    {{ s }}
-                  </span>
+                    <img
+                      v-if="techIcon(s)"
+                      :src="techIcon(s)"
+                      :alt="s"
+                      :title="s"
+                      class="w-6 h-6"
+                    />
+                    <span class="text-xs" style="color: var(--text-body);">{{ s }}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -208,11 +226,11 @@
 </template>
 
 <script setup lang="ts">
-import Live2D from '~/components/Live2D.vue'
 
 interface Project {
   title: string
-  url?: string
+  titleUrl?: string
+  link?: { label: string, href: string }
   summary: string
   tech: string[]
 }
@@ -220,7 +238,8 @@ interface Project {
 interface Job {
   role: string
   org: string
-  bullets: string[]
+  summary: string
+  stack: string[]
 }
 
 interface SkillGroup {
@@ -270,7 +289,6 @@ const TECH_ICON_RULES: [string, string][] = [
   ['openapi', 'openapi'],
   ['protobuf', 'proto'],
   ['protocol buffers', 'proto'],
-  ['internationalization', 'i18n'],
   ['mit', 'license'],
   ['three.js', 'javascript'],
   ['pixijs', 'javascript'],
@@ -282,72 +300,86 @@ function techIcon(name: string): string | undefined {
   return hit ? `/icons/material/${hit[1]}.svg` : undefined
 }
 
-const headline = 'Full-Stack Developer (TypeScript/Nuxt) | Built a solo web platform serving 252K users/yr | Node.js · PostgreSQL · Docker'
+// Dedupe by icon file; label lists the tags sharing it, e.g. 'Node.js, discord.js'.
+function projectIcons(tech: string[]): { src: string, label: string }[] {
+  const groups = new Map<string, string[]>()
+  for (const tag of tech) {
+    const src = techIcon(tag)
+    if (!src) continue
+    const tags = groups.get(src) ?? []
+    tags.push(tag)
+    groups.set(src, tags)
+  }
+  return [...groups.entries()].map(([src, tags]) => ({ src, label: tags.join(', ') }))
+}
 
-const aboutParagraphs: string[] = [
-  'FPT University graduate. I build web platforms end to end, usually alone: the SSR frontend, the API behind it, the data pipeline that feeds it, and the bot or tooling around it.',
-  'My main project is encore.moe, an unofficial community reference site available in 13 languages. This year it has served about 252,000 users and 3.7 million page views, with around 193,000 sessions from organic search. Behind it are a Nuxt SSR site, a Nitro data API with a byte-budgeted in-memory cache, and a Discord bot that updates through webhooks whenever a new data version ships.',
-  'I have also delivered paid freelance work, including a booking system for a hospitality business and a migration from MongoDB to PostgreSQL. I write TypeScript, Vue/Nuxt and Node.js daily, with Java and Rust on the side. I am looking for junior full-stack or backend roles and internships.',
+const headerIcons: { label: string, icon: string }[] = [
+  { label: 'Nuxt', icon: 'nuxt' },
+  { label: 'TypeScript', icon: 'typescript' },
+  { label: 'Node.js', icon: 'nodejs' },
+  { label: 'PostgreSQL', icon: 'database' },
+  { label: 'Docker', icon: 'docker' },
+]
+
+const stats = [
+  { value: '252K', label: 'users' },
+  { value: '3.7M', label: 'page views' },
+  { value: '193K', label: 'organic sessions' },
+  { value: '13', label: 'languages' },
 ]
 
 const projects: Project[] = [
   {
-    title: 'Multilingual Game-Data Platform (unofficial fan project)',
-    url: 'https://encore.moe',
-    summary: 'Solo-built Nuxt SSR site in 13 languages with a TypeScript Nitro data API, byte-budgeted caching and file-watch invalidation, so new data goes live without a redeploy. A Discord bot is updated through webhooks.',
+    title: 'encore.moe',
+    titleUrl: 'https://encore.moe',
+    summary: 'Multilingual game-data platform. Unofficial fan project.',
     tech: ['Nuxt 4', 'TypeScript', 'Vue 3', 'Nitro', 'Pinia', 'Tailwind', 'three.js', 'PixiJS', 'discord.js', 'PM2', 'OpenAPI'],
   },
   {
-    title: 'comico.moe: Reading Platform (Nuxt 4 + PostgreSQL)',
-    url: 'https://comico.moe',
-    summary: 'Reading and catalogue platform with 149 API routes, role-based access via better-auth, BullMQ/Redis background jobs, S3 image processing and seven locales. About 165 automated test files.',
+    title: 'comico.moe',
+    titleUrl: 'https://comico.moe',
+    summary: 'Reading platform. 149 API routes, about 165 test files.',
     tech: ['Nuxt 4', 'Vue 3.5', 'TypeScript', 'PostgreSQL', 'Drizzle ORM', 'Redis', 'BullMQ', 'AWS S3 SDK', 'Docker', 'Vitest'],
   },
   {
-    title: 'AreTwo: Cloudflare R2 Desktop Client (open source)',
-    url: 'https://github.com/alt3ri/AreTwo',
-    summary: 'Windows desktop client for browsing and managing Cloudflare R2 buckets. Credentials stay in the Rust backend and are sealed with Windows DPAPI; releases ship through a tag-triggered GitHub Actions workflow with pinned action SHAs.',
+    title: 'AreTwo',
+    link: { label: 'GitHub', href: 'https://github.com/alt3ri/AreTwo' },
+    summary: 'Open-source Cloudflare R2 desktop client for Windows.',
     tech: ['Rust', 'Tauri 2', 'tokio', 'Vue 3', 'Vite', 'TypeScript', 'GitHub Actions', 'MIT'],
   },
   {
-    title: 'Game Server Plugin Suite (Java)',
-    summary: 'Multi-module Gradle plugin suite for a multiplayer game server: about 417 Java source files, PostgreSQL persistence through HikariCP with versioned SQL migrations, async I/O with CompletableFuture, and 166 JUnit 5 test files.',
+    title: 'Game Server Plugin Suite',
+    summary: 'Multi-module Java plugins. 166 JUnit test files.',
     tech: ['Java', 'Gradle', 'PostgreSQL', 'JDBC / HikariCP', 'JUnit 5', 'Python', 'Node.js'],
   },
   {
-    title: 'Binary Protocol Stack Port (TypeScript)',
-    summary: 'Ported a UDP-based networking stack to strict TypeScript: a custom KCP-over-UDP transport and schema-driven protobuf code generation. CI regenerates protobuf code and fails on drift, then runs type-checking, tests and build.',
+    title: 'Binary Protocol Stack Port',
+    summary: 'KCP-over-UDP transport and protobuf codegen in strict TypeScript.',
     tech: ['TypeScript', 'Node.js', 'protobufjs', 'UDP / KCP', 'GitHub Actions', 'node:test'],
   },
 ]
-
-const openSource = '12 merged pull requests to a large open-source Java server project (2022): admin commands and stat-system refactor.'
 
 const experience: Job[] = [
   {
     role: 'Freelance Full-Stack Developer',
     org: 'Self-employed',
-    bullets: [
-      'Built a booking platform for a hospitality business: room booking, restaurant reservations, a shop, coupons, reviews and a gallery, with an admin dashboard.',
-      'Migrated the data layer from MongoDB to PostgreSQL with Prisma (about 20 models), and upgraded password storage to scrypt with transparent rehashing on login.',
-      'Integrated PayPal and SePay payments with separate sandbox and live modes, plus logging for webhooks and outgoing email.',
-      'Stack: Nuxt 4, Vue 3, TypeScript, Prisma, PostgreSQL, Zod, PrimeVue.',
-    ],
+    summary: 'Hospitality booking platform with payments and a MongoDB to PostgreSQL migration.',
+    stack: ['Nuxt', 'Vue', 'TypeScript', 'Prisma', 'PostgreSQL'],
   },
 ]
 
 const skills: SkillGroup[] = [
   {
     label: 'Core',
-    items: ['TypeScript', 'Vue.js', 'Nuxt', 'Node.js', 'REST APIs', 'PostgreSQL', 'Full-Stack Development', 'Internationalization (i18n)', 'Caching', 'Git'],
+    items: ['TypeScript', 'Vue.js', 'Nuxt', 'Node.js', 'REST APIs', 'PostgreSQL', 'Full-Stack', 'Git'],
   },
   {
     label: 'Secondary',
-    items: ['Java', 'Rust', 'Tauri', 'Drizzle ORM', 'Prisma', 'Redis', 'BullMQ', 'Docker', 'GitHub Actions', 'Vitest', 'JUnit', 'Payment Integration (PayPal)', 'Discord Bots', 'Protocol Buffers', 'Tailwind CSS'],
+    items: ['Java', 'Rust', 'Tauri', 'Drizzle', 'Prisma', 'Redis', 'BullMQ', 'Docker', 'GitHub Actions', 'Vitest', 'JUnit', 'PayPal', 'Discord', 'Protobuf', 'Tailwind'],
   },
   {
     label: 'Supporting',
-    items: ['Python (scripting)', 'Three.js / PixiJS', 'OpenAPI', 'AI-assisted Development (Claude Code / Codex)'],
+    items: ['Python', 'Three.js', 'OpenAPI', 'AI-assisted'],
   },
 ]
 

@@ -1,26 +1,6 @@
 <template>
   <ClientOnly>
-    <div class="fixed inset-0 w-screen h-screen overflow-hidden" style="z-index: 0; transform: scaleX(-1);">
-      <video
-        autoplay
-        muted
-        loop
-        playsinline
-        class="absolute inset-0 w-full h-full object-cover"
-        style="filter: brightness(0.4);"
-      >
-        <source
-          src="~/assets/video/main_effect_10428_250814210322_837528_60.webm"
-          type="video/webm"
-        />
-      </video>
-    </div>
-
-    <div class="fixed inset-0 w-screen h-screen pointer-events-none" style="z-index: 1; transform: scaleX(-1); filter: brightness(0.4);">
-      <Live2D class="absolute inset-0" />
-    </div>
-
-    <PixelWave full-screen :z-index="2" />
+    <PixelGradient />
 
     <div class="relative min-h-screen flex items-center justify-center sm:justify-start p-4 sm:p-8" style="z-index: 10;">
       <div class="profile-column w-full max-w-md space-y-6">
@@ -117,7 +97,6 @@
 
 <script setup lang="ts">
 import DiscordPresence from '~/components/DiscordPresence.vue'
-import Live2D from '~/components/Live2D.vue'
 
 useSeoMeta({
   title: 'alteri',
